@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>PAGE DE TEST</h1>
+
+    <br>
+    {# crée une variable ! #}
+    {% set name = "Guillaume" %}
+    <h2>{{ name }}</h2>
+
+    {# Test des filtres #}
+    <h2>{{ name | upper }}</h2>
+    <h2>{{ name | length }}</h2>
+
+    <br>
+    {# crée un tableau #}
+    {% set colors = ["orange", "brown", "turquoise", "blue"] %}
+    {% for color in colors %}
+        <div style="background-color:{{ color }} ">{{ color }}</div>
+    {% endfor %}
+
+    <br>
+    {# Afficher une date #}
+    <div>{{ "+1 year" | date('Y') }}</div>
+
+    <br>
+    {# un objet #}
+    {% set book = { title: 'Pifpaf', year: 2000, author: "John Doe"} %}
+    <h3>{{ book.author }}</h3>
+    <div> {% for key, val in book %}
+            <div>{{ key }} : {{ val }}</div>
+        {% endfor %} </div>
+
+{% endblock %}
+
+{% block title %} {{ parent() }} | Test {% endblock %}
