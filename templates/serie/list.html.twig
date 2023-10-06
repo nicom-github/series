@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+The best series | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+<section class="series-list">
+
+{% for serie in series %}
+
+    <article>
+        <a href="{{ path('series_details',{'id': serie.id}) }}" title="view serie's details">
+            <img src="{{ asset('img/posters/series/') ~ serie.poster }}" alt="{{ serie.name }}">
+        </a>
+    </article>
+    {% endfor %}
+
+
+</section>
+
+{% endblock %}
+
