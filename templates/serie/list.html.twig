@@ -11,7 +11,7 @@ The best series | {{ parent() }}
 {% for serie in series %}
 
     <article>
-        <a href="{{ path('series_details',{'id': serie.id}) }}" title="view serie's details">
+        <a href="{{ path('series_details',{'id': serie.id}) }}" title="{{ serie.name }}">
             <img src="{{ asset('img/posters/series/') ~ serie.poster }}" alt="{{ serie.name }}">
         </a>
     </article>

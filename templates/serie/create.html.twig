@@ -1,13 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h2>creation d'une series</h2>
-{% endblock %}
-
 {% block title %}
     create series | {{ parent() }}
     todo: afficher le titre de la series
 {% endblock %}
+
+{% block body %}
+    <h2>creation d'une series</h2>
+    <div>
+        {{ form_start(serieForm) }}
+
+        {{ form_widget(serieForm) }}
+
+        <button>Enregistrer</button>
+
+        {{ form_end(serieForm) }}
+
+
+    </div>
+{% endblock %}
+
+
 
 
 
