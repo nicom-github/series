@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\Serie;
 use App\Form\SerieType;
 use App\Repository\SerieRepository;
-use http\Env\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -47,15 +48,28 @@ class SerieController extends AbstractController
     /**
      * @Route("/create", name="create")
      */
-    public function Create(): Response
+    public function Create(Request $request, EntityManagerInterface $entityManager): Response
     {
         //creer une nouvelle series en bdd
 
         //Creation d'un objet serie
         $serie = new Serie();
+        $serie->setDateCreated(new \datetime());
 
         //Afficher le formulaire
         $serieForm = $this->createForm(SerieType::class,$serie);
+
+        //Chargement des données provenant du formulaire
+        $serieForm->handleRequest($request);
+
+        //Test de validation 'Le formulaire est transmis' ET 'Le formulaire est valide'
+        if($serieForm->isSubmitted() && $serieForm->isValid()){
+            $entityManager->persist($serie);
+            $entityManager->flush();
+
+            $this->addFlash('Succes','Nouvelle série enregistrée!');
+            return $this->redirectToRoute('series_details',['id'=>$serie->getId()]);
+        }
 
 
         return $this->render('serie/create.html.twig.',[
