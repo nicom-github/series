@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="icon" href="{{ asset('img/icon.png') }}">
 
+    {% block extrastyles %}{% endblock %}
 </head>
 {# read and display all flash messages #}
 {% for label, messages in app.flashes %}
